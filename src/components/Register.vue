@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import firebase from "firebase/app";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -82,16 +82,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["signUpAction"]),
     signUp() {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then((res) => {
-          console.log("success", res);
-        })
-        .catch((e) => {
-          console.error("error", e);
-        });
+      this.signUpAction({ email: this.email, password: this.password });
     },
     validate() {
       this.resetError();

@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -68,8 +69,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["signInAction"]),
     signIn() {
-      console.log("sign in", this.email, this.password);
+      this.signInAction({ email: this.email, password: this.password });
     },
     validate() {
       this.resetError();

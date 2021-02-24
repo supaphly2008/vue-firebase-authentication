@@ -5,8 +5,8 @@ const actions = {
     firebase
       .auth()
       .createUserWithEmailAndPassword(payload.email, payload.password)
-      .then((response) => {
-        commit("setUser", response.user);
+      .then((res) => {
+        commit("setUser", res.user);
       })
       .catch((error) => {
         commit("setError", error.message);

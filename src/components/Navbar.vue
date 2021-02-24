@@ -41,5 +41,10 @@ export default {
       ],
     };
   },
+  methods: {
+    signOut() {
+      alert("sign out");
+    },
+  },
 };
 </script>

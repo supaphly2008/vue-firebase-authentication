@@ -62,7 +62,6 @@ export default {
   methods: {
     ...mapActions(["signOutAction"]),
     signOut() {
-      console.log("log out");
       this.signOutAction();
     },
   },

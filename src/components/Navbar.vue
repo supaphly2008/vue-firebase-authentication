@@ -14,17 +14,31 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
-            <router-link
-              v-for="item of navItems"
-              :key="item.name"
-              :to="item.to"
-              class="button is-primary"
-            >
-              <span class="icon">
-                <i :class="`fas fa-${item.icon}`"></i>
-              </span>
-              <strong>{{ item.name }}</strong>
-            </router-link>
+            <template v-if="!isUserAuth">
+              <router-link
+                v-for="item of navItems"
+                :key="item.name"
+                :to="item.to"
+                class="button is-primary"
+              >
+                <span class="icon">
+                  <i :class="`fas fa-${item.icon}`"></i>
+                </span>
+                <strong>{{ item.name }}</strong>
+              </router-link>
+            </template>
+            <template v-else>
+              <router-link
+                @click.native="signOut"
+                to="/login"
+                class="button is-primary"
+              >
+                <span class="icon">
+                  <i class="fas fa-sign-out-alt"></i>
+                </span>
+                <strong>Logout</strong>
+              </router-link>
+            </template>
           </div>
         </div>
       </div>
@@ -32,6 +46,7 @@
   </nav>
 </template>
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -41,9 +56,14 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapGetters(["isUserAuth"]),
+  },
   methods: {
+    ...mapActions(["signOutAction"]),
     signOut() {
-      alert("sign out");
+      console.log("log out");
+      this.signOutAction();
     },
   },
 };

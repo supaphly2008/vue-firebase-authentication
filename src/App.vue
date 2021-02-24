@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import Navbar from "@/components/Navbar";
 export default {
   components: {
@@ -25,6 +25,12 @@ export default {
   },
   computed: {
     ...mapGetters(["getUser", "isUserAuth"]),
+  },
+  methods: {
+    ...mapActions(["authAction"]),
+  },
+  mounted() {
+    this.authAction();
   },
 };
 </script>

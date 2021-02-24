@@ -5,9 +5,6 @@ const actions = {
     firebase
       .auth()
       .createUserWithEmailAndPassword(payload.email, payload.password)
-      .then((res) => {
-        commit("setUser", res.user);
-      })
       .catch((error) => {
         commit("setError", error.message);
       });
@@ -16,12 +13,25 @@ const actions = {
     return firebase
       .auth()
       .signInWithEmailAndPassword(payload.email, payload.password)
-      .then((res) => {
-        commit("setUser", res.user);
+      .catch((e) => {
+        commit("setError", e.message);
+      });
+  },
+  signOutAction({ commit }) {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        commit("setUser", null);
       })
       .catch((e) => {
         commit("setError", e.message);
       });
+  },
+  authAction({ commit }) {
+    firebase.auth().onAuthStateChanged((user) => {
+      return user ? commit("setUser", user) : commit("setUser", null);
+    });
   },
 };
 
